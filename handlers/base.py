@@ -23,9 +23,13 @@ async def auth(message: types.Message) -> None:
 
 async def profile(message: types.Message) -> None:
     if await is_admin(message.from_id):
+        password_for_show = str(Config.password)
+        password_for_show = (
+            password_for_show[0] + '*****' + password_for_show[-1]
+        ) if len(password_for_show) > 3 else '***'
         text = '<b>Ваши данные</b>\n' \
                f"Телефон: {Config.phone}\n" \
-               f"Пароль: {Config.password}\n" \
+               f"Пароль: {password_for_show}\n" \
                f"Прокси: {'не используется' if Config.proxy == 'None' else Config.proxy}\n" \
                f"Уведомления: {'включены' if obj.notifications else 'отключены'}\n" \
                f"Часовой пояс: {Config.time_zone}"
